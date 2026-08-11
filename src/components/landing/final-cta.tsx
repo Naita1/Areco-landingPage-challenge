@@ -47,9 +47,9 @@ export function FinalCta() {
           Accept: 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'af7108ab-0289-4850-accb-cabcfca8f072',
-          subject: 'Nova Solicitação de Demonstração - VSat ERP',
-          from_name: 'Areco VSat ERP Landing Page',
+        access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+        subject: 'Nova Solicitação de Demonstração - VSat ERP',
+        from_name: 'Areco VSat ERP Landing Page',
           ...values
         })
       })
