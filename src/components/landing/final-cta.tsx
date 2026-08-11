@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Check, Clock } from 'lucide-react'
+import { ArrowRight, Check, Clock, Loader2 } from 'lucide-react'
 import { Container } from './ui'
 import { Reveal } from './reveal'
 import { cn } from '@/lib/utils'
@@ -10,12 +10,68 @@ const BENEFITS = [
   'Um plano de implantação para a sua realidade',
 ]
 
+type Status = 'idle' | 'loading' | 'success' | 'error'
+
 export function FinalCta() {
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
   const [values, setValues] = useState({ nome: '', email: '', empresa: '' })
 
-  const update = (key: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) =>
+  const update = (key: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((v) => ({ ...v, [key]: e.target.value }))
+    if (status === 'error') {
+      setStatus('idle')
+      setErrorMsg('')
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const publicDomains = ['gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com', 'uol.com.br', 'bol.com.br', 'icloud.com']
+    const domain = values.email.split('@')[1]?.toLowerCase()
+    
+    if (publicDomains.includes(domain)) {
+      setStatus('error')
+      setErrorMsg('Por favor, utilize um e-mail corporativo (ex: seu.nome@empresa.com.br).')
+      return
+    }
+
+    setStatus('loading')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'af7108ab-0289-4850-accb-cabcfca8f072',
+          subject: 'Nova Solicitação de Demonstração - VSat ERP',
+          from_name: 'Areco VSat ERP Landing Page',
+          ...values
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setStatus('success')
+      } else {
+        setStatus('error')
+        setErrorMsg('Ocorreu um erro interno. Por favor, tente novamente mais tarde.')
+      }
+    } catch (err) {
+      setStatus('error')
+      setErrorMsg('Erro de rede. Verifique sua conexão e tente novamente.')
+    }
+  }
+
+  const resetForm = () => {
+    setValues({ nome: '', email: '', empresa: '' })
+    setStatus('idle')
+  }
 
   return (
     <section id="demo" className="scroll-mt-20 py-20 sm:py-28">
@@ -56,26 +112,28 @@ export function FinalCta() {
               </div>
 
               <div className="rounded-2xl border border-ink-border bg-white/4 p-6 sm:p-8">
-                {sent ? (
-                  <div className="flex h-full min-h-64 flex-col items-center justify-center text-center">
-                    <span className="grid size-14 place-items-center rounded-full bg-primary/15 text-primary">
+                {status === 'success' ? (
+                  <div className="flex h-full min-h-64 flex-col items-center justify-center text-center animate-in fade-in duration-500">
+                    <span className="grid size-14 place-items-center rounded-full bg-primary/15 text-primary mb-4 animate-in zoom-in duration-300">
                       <Check className="size-7" />
                     </span>
-                    <h3 className="mt-5 font-display text-xl font-semibold">
-                      Recebemos o seu contato.
+                    <h3 className="font-display text-xl font-semibold">
+                      Solicitação recebida com sucesso!
                     </h3>
-                    <p className="mt-2 max-w-xs text-sm text-ink-muted">
-                      Um especialista da Areco vai falar com você em instantes
-                      para apresentar o VSat.
+                    <p className="mt-3 max-w-sm text-[0.9rem] leading-relaxed text-ink-muted">
+                      Um de nossos especialistas em VSat ERP entrará em contato em minutos no seu e-mail corporativo.
                     </p>
+                    <button
+                      onClick={resetForm}
+                      className="mt-6 text-sm font-medium text-primary hover:underline outline-none"
+                    >
+                      Enviar nova resposta
+                    </button>
                   </div>
                 ) : (
                   <form
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      setSent(true)
-                    }}
-                    className="flex flex-col gap-4"
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-4 animate-in fade-in duration-500"
                   >
                     <h3 className="font-display text-lg font-semibold">
                       Solicitar demonstração
@@ -86,16 +144,18 @@ export function FinalCta() {
                       value={values.nome}
                       onChange={update('nome')}
                       autoComplete="name"
-                      placeholder="Seu nome"
+                      placeholder="Seu nome completo"
+                      disabled={status === 'loading'}
                     />
                     <Field
                       id="email"
-                      label="Email corporativo"
+                      label="E-mail corporativo"
                       type="email"
                       value={values.email}
                       onChange={update('email')}
                       autoComplete="email"
                       placeholder="voce@empresa.com.br"
+                      disabled={status === 'loading'}
                     />
                     <Field
                       id="empresa"
@@ -103,21 +163,36 @@ export function FinalCta() {
                       value={values.empresa}
                       onChange={update('empresa')}
                       autoComplete="organization"
-                      placeholder="Nome da empresa"
+                      placeholder="Nome da sua organização"
+                      disabled={status === 'loading'}
                     />
+
+                    {status === 'error' && (
+                      <div className="text-[0.8rem] font-medium text-red-400">
+                        {errorMsg}
+                      </div>
+                    )}
+
                     <button
                       type="submit"
-                      className="group mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-lg
-                       bg-primary px-6 text-[0.95rem] font-medium text-primary-foreground shadow-[0_10px_24px_-12px_oklch(0.645_0.181_41/0.8)] 
-                       transition-all duration-200 hover:brightness-[1.06] focus-visible:ring-3 focus-visible:ring-primary/40 
-                       focus-visible:ring-offset-2 focus-visible:ring-offset-ink focus-visible:outline-none active:translate-y-px"
+                      disabled={status === 'loading'}
+                      className="group mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 text-[0.95rem] font-medium text-primary-foreground shadow-[0_10px_24px_-12px_oklch(0.645_0.181_41/0.8)] transition-all duration-200 hover:brightness-[1.06] focus-visible:ring-3 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ink focus-visible:outline-none active:translate-y-px disabled:pointer-events-none disabled:opacity-80"
                     >
-                      Agendar Demonstração
-                      <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                      {status === 'loading' ? (
+                        <>
+                          <Loader2 className="size-4 animate-spin" />
+                          Enviando solicitação...
+                        </>
+                      ) : (
+                        <>
+                          Agendar Demonstração
+                          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        </>
+                      )}
                     </button>
                     <p className="text-[0.72rem] leading-relaxed text-ink-muted">
                       Ao enviar, você concorda com a Política de Privacidade. Seus
-                      dados serão usados exclusivamente para contato.
+                      dados serão usados exclusivamente para contato comercial.
                     </p>
                   </form>
                 )}
@@ -146,7 +221,7 @@ function Field({
         name={id}
         required
         className={cn(
-          'h-11 rounded-lg border border-ink-border bg-ink/40 px-3.5 text-sm text-ink-foreground placeholder:text-ink-muted/70 outline-none transition-colors focus:border-primary/60 focus:ring-3 focus:ring-primary/20',
+          'h-11 rounded-lg border border-ink-border bg-ink/40 px-3.5 text-sm text-ink-foreground placeholder:text-ink-muted/70 outline-none transition-colors focus:border-primary/60 focus:ring-3 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50',
           className,
         )}
         {...props}
