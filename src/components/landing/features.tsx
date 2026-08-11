@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Container, SectionLabel } from './ui'
 import { Reveal } from './reveal'
 import { cn } from '@/lib/utils'
+import { findModuleByTitle, type ModuleData } from '../../data/modules-data'
+import { ModuleModal } from './module-modal'
 import {
   Briefcase,
   Wallet,
@@ -56,6 +58,14 @@ const PRODUCTS = {
 
 export function Features() {
   const [activeTab, setActiveTab] = useState<keyof typeof PRODUCTS>('erp')
+  const [selectedModule, setSelectedModule] = useState<ModuleData | null>(null)
+
+  const handleCardClick = (productName: string) => {
+    const foundModule = findModuleByTitle(productName)
+    if (foundModule) {
+      setSelectedModule(foundModule)
+    }
+  }
 
   return (
     <section id="produtos" className="scroll-mt-20 bg-muted/40 py-20 sm:py-28">
@@ -90,34 +100,50 @@ export function Features() {
 
         <div className="mx-auto mt-10 max-w-4xl">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {PRODUCTS[activeTab].map((prod, i) => (
-              <Reveal
-                key={prod.name}
-                delay={i * 0.04}
-                className={activeTab !== 'erp' ? 'lg:col-span-2' : ''}
-              >
-                <div className="flex h-full items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)] transition-colors hover:border-primary/40">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                    <prod.icon className="size-[1.1rem]" />
-                  </span>
-                  <div>
-                    <h3 className="font-display text-[0.95rem] font-semibold text-foreground">
-                      {prod.name}
-                    </h3>
-                    {/* @ts-ignore */}
-                    {prod.desc && (
-                      <p className="mt-1 text-[0.8rem] leading-relaxed text-muted-foreground">
-                        {/* @ts-ignore */}
-                        {prod.desc}
-                      </p>
+            {PRODUCTS[activeTab].map((prod, i) => {
+              const isClickable = Boolean(findModuleByTitle(prod.name))
+
+              return (
+                <Reveal
+                  key={prod.name}
+                  delay={i * 0.04}
+                  className={activeTab !== 'erp' ? 'lg:col-span-2' : ''}
+                >
+                  <div
+                    onClick={() => handleCardClick(prod.name)}
+                    className={cn(
+                      'group flex h-full items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)] transition-all duration-200',
+                      isClickable && 'cursor-pointer hover:border-amber-600/50 hover:shadow-md'
                     )}
+                  >
+                    <span className={cn(
+                      'grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-transform duration-200',
+                      isClickable && 'group-hover:-translate-y-0.5'
+                    )}>
+                      <prod.icon className="size-[1.1rem]" />
+                    </span>
+                    <div>
+                      <h3 className="font-display text-[0.95rem] font-semibold text-foreground">
+                        {prod.name}
+                      </h3>
+                      {'desc' in prod && (
+                        <p className="mt-1 text-[0.8rem] leading-relaxed text-muted-foreground">
+                          {(prod as { desc: string }).desc}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </div>
         </div>
       </Container>
+
+      <ModuleModal
+        module={selectedModule}
+        onClose={() => setSelectedModule(null)}
+      />
     </section>
   )
 }

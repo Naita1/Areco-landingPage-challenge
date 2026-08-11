@@ -22,7 +22,6 @@ export function Hero() {
       id="top"
       className="relative overflow-hidden bg-ink text-ink-foreground"
     >
-      {/* subtle technical grid + vignette */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.5]"
@@ -83,7 +82,7 @@ export function Hero() {
               <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </CtaLink>
             <CtaLink
-              href="#demo"
+              href="#produtos"
               variant="secondary-dark"
               className="w-full sm:w-auto"
             >
