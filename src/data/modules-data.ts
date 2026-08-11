@@ -153,6 +153,136 @@ export const MODULES: ModuleData[] = [
       'Homologação & Bloqueios de Compras: Integração do IQF com o setor de compras para alertas, bloqueios preventivos de fornecedores mal avaliados e rastreabilidade.'
     ],
   },
+  {
+    id: 'arc-team',
+    title: 'Team',
+    category: 'arc',
+    tagline: 'Jornada do trabalho.',
+    description:
+      'Plataforma para gestão de jornada e ponto eletrônico. No app, o colaborador registra batidas e faz solicitações; na central, os gestores acompanham indicadores e garantem conformidade legal (MTP 671).',
+    features: [
+      'Registro de Ponto Flexível: Modalidades via App mobile, Leitor Facial e QR Code com geolocalização.',
+      'Conformidade Legal (MTP 671): Geração e exportação de arquivos fiscais (AFD, AEJ) e atestados para fiscalização.',
+      'Gestão de Solicitações: Fluxo para aprovação de horas extras, abonos, férias e envio de atestados médicos.',
+      'Central do Gestor & RH: Dashboards de jornadas, divergências e espelho de ponto em tempo real.',
+      'Sincronização Nativa: Operação autônoma ou integrada à Folha de Pagamento do VSat ERP.'
+    ],
+  },
+  {
+    id: 'arc-sign',
+    title: 'Sign',
+    category: 'arc',
+    tagline: 'Assinatura digital.',
+    description:
+      'O arcSign integra assinatura digital ao fluxo operacional da empresa, via plataforma ou API. Isso permite o envio automatizado de documentos individuais para múltiplos destinatários com validade jurídica ICP-Brasil e rastreabilidade.',
+    features: [
+      'Validade Jurídica & ICP-Brasil: Assinaturas digitais e eletrônicas com rastreabilidade e carimbo do tempo.',
+      'Envio em Larga Escala: Disparo automatizado de documentos individuais para múltiplos destinatários.',
+      'Assinatura Presencial: Coleta de assinaturas diretamente no dispositivo com o destinatário em campo.',
+      'Integração Nativa ao ERP: Conexão direta para envio automático de holerites, espelhos de ponto e contratos.',
+      'Plataforma & API: Flexibilidade para utilização via portal web ou integrado a outros sistemas.'
+    ],
+  },
+  {
+    id: 'arc-mobfix',
+    title: 'MobFix',
+    category: 'arc',
+    tagline: 'Manutenção.',
+    description:
+      'Gestão móvel de manutenção industrial e de ativos. O MobFix coloca roteiros, checklists e ordens de serviço na mão da equipe técnica no chão de fábrica.',
+    features: [
+      'Gestão Mobile de OSs: Abertura, acompanhamento e encerramento de ordens de serviço via aplicativo.',
+      'Manutenção Preventiva & Corretiva: Cronogramas de revisão, alertas e controle de paradas não programadas.',
+      'Checklists Digitais: Padronização de inspeções garantindo o cumprimento de procedimentos operacionais.',
+      'Integração com ERP: Sincronização em tempo real de materiais utilizados, custos e disponibilidade de máquinas.'
+    ],
+  },
+  {
+    id: 'arc-hube',
+    title: 'HUBe',
+    category: 'arc',
+    tagline: 'Vendas online/E-commerce.',
+    description:
+      'Hub de integração omnichannel que conecta o ERP aos principais e-commerces e marketplaces, centralizando a publicação de produtos, saldos de estoque e fluxo de pedidos.',
+    features: [
+      'Centralização de Marketplaces: Conexão com os principais canais de venda online B2B e B2C.',
+      'Sincronização de Estoque & Preços: Atualização em tempo real de saldos físicos e tabelas de preço.',
+      'Importação Automática de Pedidos: Conversão instantânea das vendas virtuais em pedidos no ERP.',
+      'Automação de Faturamento: Agilidade na emissão de NF-e e geração de dados de rastreio de entrega.'
+    ],
+  },
+  {
+    id: 'areco-insights',
+    title: 'Areco Insights',
+    category: 'arc',
+    tagline: 'Inteligência Artificial (IA).',
+    description:
+      'A solução de inteligência artificial nativa do VSat. Analisa o contexto e os dados operacionais em tempo real para entregar interpretações estratégicas e apoiar a tomada de decisão.',
+    features: [
+      'Visão Multidepartamental: Análises automatizadas para Controladoria, Comercial, Compras, Produção e Qualidade.',
+      'Análise Contextual de Dados: Identificação contínua de desvios, inconsistências e tendências operacionais.',
+      'Decisões Baseadas em Dados: Recomendações acionáveis para otimizar processos e reduzir gargalos.',
+      'Interface Inteligente: Consultas e relatórios direcionados conforme o perfil do usuário.'
+    ],
+  },
+  {
+    id: 'mobsales',
+    title: 'MobSales',
+    category: 'addons',
+    tagline: 'Força de vendas móvel com kits.',
+    description:
+      'Mobilidade e performance comercial com o MobSales. Aplicativo móvel integrado ao Areco ERP que dá autonomia para representantes realizarem pedidos, consultarem catálogo e acompanharem metas em campo.',
+    features: [
+      'Criação de Pedidos e Orçamentos: Emissão respeitando regras do ERP, tabelas de preço, limites e prazos de pagamento.',
+      'Suporte a Kits de Produtos: Flexibilidade na composição e lançamento dinâmico de kits de vendas durante o atendimento.',
+      'Catálogo Detalhado & Clientes: Consulta de estoque em tempo real, especificações técnicas e histórico do cliente.',
+      'Aplicativo Offline com Sincronização: Gravação local dos dados e sincronização automática ao reestabelecer conexão.',
+      'Compartilhamento em PDF: Envio instantâneo de orçamentos e pedidos via WhatsApp, e-mail ou outros canais.'
+    ],
+  },
+  {
+    id: 'mobwms',
+    title: 'MobWMS',
+    category: 'addons',
+    tagline: 'Gestão de estoque/almoxarifado.',
+    description:
+      'O MobWMS controla armazenagem, conferência e movimentação de materiais direto do dispositivo móvel ou coletor Android, com sincronização em tempo real ao VSat ERP.',
+    features: [
+      'Conferência Cega de Entrada: Leitura via código de barras no recebimento para validação física de mercadorias.',
+      'Localização & Endereçamento: Gestão e rastreabilidade de pallets e packs (situação: Liberado, Quarentena ou Bloqueado).',
+      'Levantamento de Inventário: Contagem ágil por coletores e exportação direta para o Controle de Estoque do ERP.',
+      'Picking & Packing List: Movimentações por embalagem e organização para separação e despacho de materiais.',
+      'Etiquetagem Flexível: Leitura e parametrização configurável do padrão de código de barras do fornecedor.'
+    ],
+  },
+  {
+    id: 'price-search',
+    title: 'Price Search',
+    category: 'addons',
+    tagline: 'Cotação de compras.',
+    description:
+      'Leilão reverso para o seu processo de compras. O Price Search notifica os fornecedores sobre o processo, coleta as cotações em um portal web e fecha o ciclo gerando a Ordem de Compra no VSat.',
+    features: [
+      'Notificação de Fornecedores: Envio automático do processo de compras para preenchimento de propostas no portal.',
+      'Leilão Reverso: Disputa comercial transparente para obtenção do melhor custo nas aquisições.',
+      'Análise Comparativa: Filtros e mapas comparativos para seleção da melhor oferta pelo comprador.',
+      'Ciclo Fechado no VSat: Início na solicitação e encerramento automatizado com a conversão em Ordem de Compra.'
+    ],
+  },
+  {
+    id: 'receptor',
+    title: 'Receptor',
+    category: 'addons',
+    tagline: 'Captura de documentos fiscais.',
+    description:
+      'Automação nativa para busca, monitoramento e captura de documentos fiscais eletrônicos (NF-e, CT-e, NFS-e) emitidos contra a empresa diretamente da SEFAZ.',
+    features: [
+      'Captura Automática na SEFAZ: Download contínuo de XMLs emitidos contra o CNPJ da empresa.',
+      'Manifestação do Destinatário: Registro automatizado de Ciência da Emissão, Confirmação ou Desconhecimento.',
+      'Pré-Entrada Automatizada: Agilidade no faturamento e recebimento físico de materiais com leitura dos arquivos.',
+      'Guarda e Rastreabilidade Fiscal: Arquivamento centralizado e seguro conforme as exigências fiscais.'
+    ],
+  },
 ]
 
 export function findModuleByTitle(title: string): ModuleData | undefined {
