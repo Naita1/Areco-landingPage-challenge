@@ -4,15 +4,31 @@ import { Logo } from './logo'
 const COLUMNS = [
   {
     title: 'Soluções',
-    links: ['VSat ERP', 'Linha arc', 'Team', 'Sign', 'e-Pier'],
+    links: [
+      { name: 'VSat ERP', href: '#produtos' },
+      { name: 'Linha Arc', href: '#produtos' },
+      { name: 'Team', href: '#produtos' },
+      { name: 'Sign', href: '#produtos' },
+      { name: 'e-Pier', href: '#plataforma' },
+    ],
   },
   {
     title: 'Institucional',
-    links: ['A Areco', 'Carreiras', 'Parceiros', 'Notícias'],
+    links: [
+      { name: 'A Areco', href: '#plataforma' },
+      { name: 'Carreiras', href: '#demo' },
+      { name: 'Parceiros', href: '#casos' },
+      { name: 'Notícias', href: '#top' },
+    ],
   },
   {
     title: 'Atendimento',
-    links: ['Fale conosco', 'Central de ajuda', 'WhatsApp', 'Agent'],
+    links: [
+      { name: 'Fale conosco', href: '#demo' },
+      { name: 'Central de ajuda', href: '#demo' },
+      { name: 'WhatsApp', href: '#demo' },
+      { name: 'Areco Insights', href: '#plataforma' },
+    ],
   },
 ]
 
@@ -37,12 +53,12 @@ export function SiteFooter() {
                 </h3>
                 <ul className="mt-4 flex flex-col gap-2.5">
                   {col.links.map((link) => (
-                    <li key={link}>
+                    <li key={link.name}>
                       <a
-                        href="#contato"
+                        href={link.href}
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none"
                       >
-                        {link}
+                        {link.name}
                       </a>
                     </li>
                   ))}

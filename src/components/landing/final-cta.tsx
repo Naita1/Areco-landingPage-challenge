@@ -75,6 +75,7 @@ export function FinalCta() {
 
   return (
     <section id="demo" className="scroll-mt-20 py-20 sm:py-28">
+      <div id="contato" className="scroll-mt-20" />
       <Container>
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-ink-border bg-ink px-6 py-12 text-ink-foreground sm:px-12 sm:py-16">
