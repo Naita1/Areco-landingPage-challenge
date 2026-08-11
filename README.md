@@ -3,8 +3,6 @@
 # Areco VSat ERP — B2B Experience Landing Page
 **Gestão Empresarial de Alta Performance. Uma só cadeia de valor para o físico, o financeiro e o fiscal.**
 
-![Areco VSat ERP](./public/preview.png)
-
 </div>
 
 <br />
