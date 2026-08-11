@@ -2,7 +2,8 @@
 
 # Areco VSat Experience
 
-**Landing page de alta performance para o ecossistema Areco VSat ERP — a plataforma de gestão empresarial nativa na web.**
+**Challenge — Landing page de alta performance para o ecossistema Areco VSat ERP.**\
+Desenvolvido por **Taina Ribeiro**.
 
 ![React](https://img.shields.io/badge/React-19-58c4dc?style=flat-square&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178c6?style=flat-square&logo=typescript&logoColor=white)
@@ -206,6 +207,6 @@ docs: criar README profissional do projeto
 
 <div align="center">
 
-Desenvolvido com engenharia de precisão por **Areco Consultoria e Tecnologia de Sistemas**.
+Desenvolvido por **Taina Ribeiro** como challenge técnico.
 
 </div>
