@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Container, SectionLabel } from './ui'
 import { Reveal } from './reveal'
 import { cn } from '@/lib/utils'
@@ -60,12 +60,16 @@ export function Features() {
   const [activeTab, setActiveTab] = useState<keyof typeof PRODUCTS>('erp')
   const [selectedModule, setSelectedModule] = useState<ModuleData | null>(null)
 
-  const handleCardClick = (productName: string) => {
+  const handleCardClick = useCallback((productName: string) => {
     const foundModule = findModuleByTitle(productName)
     if (foundModule) {
       setSelectedModule(foundModule)
     }
-  }
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedModule(null)
+  }, [])
 
   return (
     <section id="produtos" className="scroll-mt-20 bg-muted/40 py-20 sm:py-28">
@@ -142,7 +146,7 @@ export function Features() {
 
       <ModuleModal
         module={selectedModule}
-        onClose={() => setSelectedModule(null)}
+        onClose={handleCloseModal}
       />
     </section>
   )
